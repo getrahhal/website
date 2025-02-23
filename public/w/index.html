@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Location - Rahhal</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/waypoint.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="waypoint-page">
+    <div class="location-card">
+        <h1>Open Location</h1>
+        <div class="location-details">
+            <div id="locationName"></div>
+            <div id="coordinates" class="coordinates"></div>
+        </div>
+        
+        <div class="action-buttons">
+            <button onclick="openInAppleMaps()" class="apple-maps-btn">
+                <img src="/images/apple-maps-icon.svg" alt="Apple Maps">
+                Open in Apple Maps
+            </button>
+            
+            <button onclick="openInGoogleMaps()" class="google-maps-btn">
+                <img src="/images/google-maps-icon.svg" alt="Google Maps">
+                Open in Google Maps
+            </button>
+            
+            <button onclick="copyUrl()" class="copy-url-btn">
+                Copy Location URL
+            </button>
+        </div>
+
+        <div class="get-app">
+            <p>Get the full experience with Rahhal App</p>
+            <a href="#" class="download-button">
+                <img src="/images/app-store-badge.svg" alt="Download on the App Store">
+            </a>
+        </div>
+    </div>
+
+    <script src="/js/waypoint.js"></script>
+</body>
+</html> 
