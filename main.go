@@ -26,14 +26,22 @@ func main() {
 		// to handle requests in parallel. However, this is incompatible with Docker containers
 		// and should remain false when running in containerized environments.
 		// For non-containerized deployments, setting to true can improve performance on multi-core systems.
-		Prefork:      os.Getenv("PREFORK") == "true",
+		Prefork: os.Getenv("PREFORK") == "true",
 	})
 
 	// Add middleware
-	app.Use(logger.New())    // Request logging
-	app.Use(recover.New())   // Panic recovery
-	app.Use(compress.New())  // Response compression
-	app.Use(cors.New())      // CORS support
+	app.Use(logger.New())   // Request logging
+	app.Use(recover.New())  // Panic recovery
+	app.Use(compress.New()) // Response compression
+	app.Use(cors.New())     // CORS support
+
+	// Add no-cache middleware
+	app.Use(func(c *fiber.Ctx) error {
+		c.Set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate")
+		c.Set("Pragma", "no-cache")
+		c.Set("Expires", "0")
+		return c.Next()
+	})
 
 	// Special handler for apple-app-site-association
 	app.Get("/.well-known/apple-app-site-association", func(c *fiber.Ctx) error {
@@ -48,11 +56,8 @@ func main() {
 
 	// Serve static files
 	app.Static("/", "./public", fiber.Static{
-		Compress:      true,
-		ByteRange:     true,
-		Browse:        false,
-		CacheDuration: 24 * 60 * 60 * 1000 * 1000 * 1000, // 24 hours in nanoseconds
-		MaxAge:        24 * 60 * 60,                       // 24 hours in seconds
+		Compress: true,
+		Browse:   false,
 	})
 
 	// Get port from environment variable or default to 8080
@@ -66,4 +71,4 @@ func main() {
 	if err := app.Listen(":" + port); err != nil {
 		log.Fatal(err)
 	}
-} 
+}

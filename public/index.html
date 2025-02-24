@@ -10,20 +10,17 @@
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">Rahhal</div>
-        </nav>
-    </header>
-
     <main>
         <section class="hero">
             <div class="hero-content">
+                <div class="hero-logo">
+                    <img src="/images/rahhal-logo-light.svg" alt="Rahhal" width="300" height="100">
+                </div>
                 <h1>Discover the World with Rahhal</h1>
                 <p class="subtitle">Your intelligent travel companion that makes exploring easier than ever</p>
                 <div class="app-store-button">
-                    <a href="https://apps.apple.com/app/rahhal/id6475982341" class="download-button">
-                        <img src="/images/app-store-badge.svg" alt="Download on the App Store" width="120" height="40">
+                    <a href="https://apps.apple.com/sa/app/%D8%B1%D8%AD-%D8%A7%D9%84-rahhal/id1672846506" class="download-button">
+                        <img src="/images/app-store-badge.svg" alt="Download on the App Store" width="180" height="60">
                     </a>
                 </div>
             </div>
@@ -31,28 +28,12 @@
                 <img src="/images/hero-app.png" alt="Rahhal App Screenshot" width="375" height="812" loading="lazy">
             </div>
         </section>
-
-        <section class="features">
-            <div class="feature">
-                <div class="feature-icon">🗺️</div>
-                <h3>Smart Navigation</h3>
-                <p>Navigate seamlessly with intelligent routing and real-time updates</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">📍</div>
-                <h3>Location Sharing</h3>
-                <p>Share your favorite places easily with friends and family</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🌟</div>
-                <h3>Personalized Experience</h3>
-                <p>Get tailored recommendations based on your preferences</p>
-            </div>
-        </section>
     </main>
 
     <footer>
-        <p>&copy; <script>document.write(new Date().getFullYear())</script> Rahhal. All rights reserved.</p>
+        <p>&copy; <span id="currentYear"></span> Rahhal. All rights reserved.</p>
     </footer>
+
+    <script src="/js/main.js"></script>
 </body>
 </html> 

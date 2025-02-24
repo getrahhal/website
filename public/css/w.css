@@ -98,8 +98,26 @@ button:active {
 }
 
 .get-app img {
-    height: 40px;
+    height: 60px;
     width: auto;
+    transition: transform 0.2s ease;
+}
+
+.get-app img:hover {
+    transform: scale(1.05);
+}
+
+.card-logo {
+    display: block;
+    text-align: center;
+    margin-bottom: 2rem;
+    line-height: 0;
+}
+
+.card-logo img {
+    height: 120px;
+    width: auto;
+    border-radius: 8px;
 }
 
 @media (max-width: 480px) {
