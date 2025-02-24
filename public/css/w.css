@@ -62,13 +62,9 @@ button img {
     flex-shrink: 0;
 }
 
-.apple-maps-btn {
-    background-color: var(--primary-color);
-    color: white;
-}
-
+.apple-maps-btn,
 .google-maps-btn {
-    background-color: #4285F4;
+    background-color: var(--primary-color);
     color: white;
 }
 
