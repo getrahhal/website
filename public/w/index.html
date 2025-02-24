@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open Location - Rahhal</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/waypoint.css">
+    <link rel="stylesheet" href="/css/w.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -20,28 +20,120 @@
         
         <div class="action-buttons">
             <button onclick="openInAppleMaps()" class="apple-maps-btn">
-                <img src="/images/apple-maps-icon.svg" alt="Apple Maps">
+                <img src="/images/apple-maps-icon.svg" alt="Apple Maps" width="24" height="24">
                 Open in Apple Maps
             </button>
             
             <button onclick="openInGoogleMaps()" class="google-maps-btn">
-                <img src="/images/google-maps-icon.svg" alt="Google Maps">
+                <img src="/images/google-maps-icon.svg" alt="Google Maps" width="24" height="24">
                 Open in Google Maps
             </button>
             
-            <button onclick="copyUrl()" class="copy-url-btn">
+            <button onclick="copyUrl()" class="copy-url-btn" id="copyUrlBtn">
                 Copy Location URL
             </button>
         </div>
 
         <div class="get-app">
             <p>Get the full experience with Rahhal App</p>
-            <a href="#" class="download-button">
-                <img src="/images/app-store-badge.svg" alt="Download on the App Store">
+            <a href="https://apps.apple.com/app/rahhal/id6475982341" class="download-button">
+                <img src="/images/app-store-badge.svg" alt="Download on the App Store" width="120" height="40">
             </a>
         </div>
     </div>
 
-    <script src="/js/waypoint.js"></script>
+    <script>
+        // Parse URL parameters
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                ll: params.get('ll'),
+                q: params.get('q'),
+                t: params.get('t')
+            };
+        }
+
+        // Initialize the page with location data
+        function initializePage() {
+            const params = getUrlParams();
+            if (!params.ll) {
+                document.body.innerHTML = '<div class="location-card"><h1>Invalid Location</h1><p>This location link appears to be invalid.</p></div>';
+                return;
+            }
+
+            const [lat, lng] = params.ll.split(',').map(coord => parseFloat(coord));
+            const locationName = params.q || 'Marked Location';
+
+            document.getElementById('locationName').textContent = locationName;
+            document.getElementById('coordinates').textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+        }
+
+        // Open in Apple Maps
+        function openInAppleMaps() {
+            const params = getUrlParams();
+            if (!params.ll) return;
+            
+            const url = `maps://maps.apple.com/?ll=${params.ll}&q=${encodeURIComponent(params.q || 'Marked Location')}`;
+            window.location.href = url;
+        }
+
+        // Open in Google Maps
+        function openInGoogleMaps() {
+            const params = getUrlParams();
+            if (!params.ll) return;
+            
+            const [lat, lng] = params.ll.split(',');
+            const url = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+            window.location.href = url;
+        }
+
+        // Copy URL to clipboard
+        function copyUrl() {
+            const button = document.getElementById('copyUrlBtn');
+            const originalText = button.textContent;
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(window.location.href)
+                    .then(() => {
+                        button.textContent = 'Copied!';
+                        setTimeout(() => {
+                            button.textContent = originalText;
+                        }, 2000);
+                    })
+                    .catch(() => {
+                        fallbackCopyToClipboard(window.location.href, button, originalText);
+                    });
+            } else {
+                fallbackCopyToClipboard(window.location.href, button, originalText);
+            }
+        }
+
+        // Fallback copy method for browsers that don't support clipboard API
+        function fallbackCopyToClipboard(text, button, originalText) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                document.execCommand('copy');
+                button.textContent = 'Copied!';
+            } catch (err) {
+                button.textContent = 'Failed to copy';
+                console.error('Failed to copy URL:', err);
+            }
+
+            document.body.removeChild(textArea);
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 2000);
+        }
+
+        // Initialize the page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializePage);
+    </script>
 </body>
 </html> 
