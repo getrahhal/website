@@ -18,10 +18,19 @@
         <h1>Open Location</h1>
         <div class="location-details">
             <div id="locationName"></div>
-            <div id="coordinates" class="coordinates"></div>
+            <div class="coordinates-container" onclick="copyCoordinates()">
+                <div id="coordinates" class="coordinates"></div>
+                <span class="copy-coordinates-btn" id="copyCoordinatesBtn">copy</span>
+            </div>
         </div>
         
         <div class="action-buttons">
+            <button onclick="openInRahhal()" class="rahhal-btn" id="rahhalBtn">
+                Open in Rahhal
+            </button>
+            
+            <div class="button-divider"></div>
+            
             <button onclick="openInGoogleMaps()" class="google-maps-btn">
                 <img src="/images/google-maps-icon.svg" alt="Google Maps" width="24" height="24">
                 Open in Google Maps
@@ -30,10 +39,6 @@
             <button onclick="openInAppleMaps()" class="apple-maps-btn">
                 <img src="/images/apple-maps-icon.svg" alt="Apple Maps" width="24" height="24">
                 Open in Apple Maps
-            </button>
-            
-            <button onclick="copyUrl()" class="copy-url-btn" id="copyUrlBtn">
-                Copy Location URL
             </button>
         </div>
 
@@ -46,6 +51,11 @@
     </div>
 
     <script>
+        // Add this at the beginning of your script section
+        function isIOS() {
+            return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        }
+
         // Parse URL parameters
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
@@ -66,9 +76,16 @@
 
             const [lat, lng] = params.ll.split(',').map(coord => parseFloat(coord));
             const locationName = params.q || 'Marked Location';
+            const formattedCoordinates = `(${lat.toFixed(6)},${lng.toFixed(6)})`;
 
             document.getElementById('locationName').textContent = locationName;
-            document.getElementById('coordinates').textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+            document.getElementById('coordinates').textContent = formattedCoordinates;
+
+            // Show Rahhal button only on iOS devices
+            const rahhalBtn = document.getElementById('rahhalBtn');
+            if (!isIOS()) {
+                rahhalBtn.style.display = 'none';
+            }
         }
 
         // Open in Apple Maps
@@ -133,6 +150,38 @@
             setTimeout(() => {
                 button.textContent = originalText;
             }, 2000);
+        }
+
+        function openInRahhal() {
+            const params = getUrlParams();
+            if (!params.ll) return;
+            
+            const rahhalUrl = `rahhal://rahhal.app/w?ll=${params.ll}${params.q ? '&q=' + encodeURIComponent(params.q) : ''}${params.t ? '&t=' + params.t : ''}`;
+            
+            // Try to open the Rahhal app
+            window.location.href = rahhalUrl;
+        }
+
+        // Add new function to copy coordinates
+        function copyCoordinates() {
+            const coordinates = document.getElementById('coordinates').textContent;
+            const button = document.getElementById('copyCoordinatesBtn');
+            const originalText = button.textContent;
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(coordinates)
+                    .then(() => {
+                        button.textContent = 'Copied!';
+                        setTimeout(() => {
+                            button.textContent = originalText;
+                        }, 2000);
+                    })
+                    .catch(() => {
+                        fallbackCopyToClipboard(coordinates, button, originalText);
+                    });
+            } else {
+                fallbackCopyToClipboard(coordinates, button, originalText);
+            }
         }
 
         // Initialize the page when DOM is loaded
