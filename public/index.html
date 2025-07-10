@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rahhal - Your Ultimate Travel Companion</title>
+    <meta name="description" content="Your intelligent travel companion that makes exploring easier than ever">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Standard favicons -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -33,11 +35,11 @@
                 <div class="hero-logo">
                     <img src="/images/rahhal-logo-light.svg" alt="Rahhal" width="300" height="100">
                 </div>
-                <h1>Discover the World with Rahhal</h1>
-                <p class="subtitle">Your intelligent travel companion that makes exploring easier than ever</p>
+                <h1 data-i18n="heroTitle">Discover the World with Rahhal</h1>
+                <p class="subtitle" data-i18n="heroSubtitle">Your intelligent travel companion that makes exploring easier than ever</p>
                 <div class="app-store-button">
                     <a href="https://apps.apple.com/sa/app/%D8%B1%D8%AD-%D8%A7%D9%84-rahhal/id1672846506" class="download-button">
-                        <img src="/images/app-store-badge.svg" alt="Download on the App Store" width="180" height="60">
+                        <img src="/images/app-store-badge.svg" data-i18n-alt="downloadButton" alt="Download on the App Store" width="180" height="60">
                     </a>
                 </div>
             </div>
@@ -48,9 +50,16 @@
     </main>
 
     <footer>
-        <p>&copy; <span id="currentYear"></span> Rahhal. All rights reserved.</p>
+        <div class="footer-content">
+            <p>&copy; <span id="currentYear"></span> Rahhal. <span data-i18n="copyright">All rights reserved.</span></p>
+            <p class="built-with" data-i18n="builtWith">Built with ❤️ in 🇸🇦</p>
+        </div>
     </footer>
 
+    <script src="/js/translations.js"></script>
+    <script src="/js/i18n.js"></script>
+    <script src="/js/theme.js"></script>
+    <script src="/js/settings.js"></script>
     <script src="/js/main.js"></script>
 </body>
 </html> 
