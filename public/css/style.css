@@ -5,6 +5,18 @@
     --background-color: #FFFFFF;
     --section-background: #F5F5F7;
     --border-radius: 12px;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --border-color: #E5E5E7;
+}
+
+[data-theme="dark"] {
+    --primary-color: #0A84FF;
+    --text-color: #FFFFFF;
+    --secondary-text: #A1A1A6;
+    --background-color: #1C1C1E;
+    --section-background: #2C2C2E;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --border-color: #38383A;
 }
 
 * {
@@ -18,12 +30,127 @@ body {
     line-height: 1.5;
     color: var(--text-color);
     background-color: var(--background-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Arabic font support */
+html[lang="ar"] body {
+    font-family: 'Noto Sans Arabic', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 main {
     min-height: calc(100vh - 80px);
     display: flex;
     flex-direction: column;
+}
+
+/* Settings Panel */
+.settings-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--background-color);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.settings-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.settings-panel {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 999;
+    background: var(--background-color);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    min-width: 200px;
+}
+
+.settings-panel.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.settings-content {
+    padding: 20px;
+}
+
+.settings-group {
+    margin-bottom: 15px;
+}
+
+.settings-group:last-child {
+    margin-bottom: 0;
+}
+
+.settings-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.settings-select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--background-color);
+    color: var(--text-color);
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.settings-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.settings-select option {
+    background: var(--background-color);
+    color: var(--text-color);
+}
+
+/* RTL Support */
+html[dir="rtl"] .settings-button {
+    left: 20px;
+    right: auto;
+}
+
+html[dir="rtl"] .settings-panel {
+    left: 20px;
+    right: auto;
+}
+
+html[dir="rtl"] .hero-content {
+    padding-left: 2rem;
+    padding-right: 0;
+}
+
+html[dir="rtl"] .hero-image {
+    padding-right: 2rem;
+    padding-left: 0;
 }
 
 .hero {
@@ -96,7 +223,7 @@ h1 {
     padding: 2rem;
     border-radius: var(--border-radius);
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow);
 }
 
 .feature-icon {
@@ -123,17 +250,50 @@ h1 {
 }
 
 footer {
-    text-align: center;
-    padding: 2rem;
-    color: var(--secondary-text);
     background-color: var(--section-background);
-    height: 80px;
+    padding: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 100px;
+}
+
+.footer-content {
+    text-align: center;
+    color: var(--secondary-text);
+}
+
+.footer-content p {
+    margin-bottom: 0.5rem;
+}
+
+.footer-content p:last-child {
+    margin-bottom: 0;
+}
+
+.built-with {
+    font-weight: 500;
+    color: var(--text-color);
 }
 
 @media (max-width: 768px) {
+    .settings-button {
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
+    }
+
+    .settings-panel {
+        right: 10px;
+        left: 10px;
+        max-width: calc(100vw - 20px);
+    }
+
+    html[dir="rtl"] .settings-panel {
+        left: 10px;
+        right: 10px;
+    }
+
     .hero {
         flex-direction: column;
         text-align: center;
@@ -146,7 +306,7 @@ footer {
     }
 
     .hero-image {
-        padding-left: 200;
+        padding-left: 0;
     }
 
     .hero-image img {
@@ -169,5 +329,14 @@ footer {
 
     .subtitle {
         font-size: 1.25rem;
+    }
+
+    /* RTL mobile adjustments */
+    html[dir="rtl"] .hero-content {
+        padding-left: 0;
+    }
+
+    html[dir="rtl"] .hero-image {
+        padding-right: 0;
     }
 } 
