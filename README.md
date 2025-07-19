@@ -1,6 +1,16 @@
-# Rahhal Website
+# Mobily.dev Website
 
-This is the official website for Rahhal app, featuring a landing page and location sharing functionality. Built with Go Fiber v2 for high performance and scalability.
+A simple static website for mobily.dev domain with a blue gradient background and personalized greeting functionality. Built with Go Fiber v2 for high performance and scalability.
+
+**Note:** This website is not owned or managed by Mobily Telecommunications company and is not related to it.
+
+## Features
+
+- **Simple Design**: Clean blue gradient background with centered white greeting box
+- **Personalized Greeting**: Add `?hi=YourName` to the URL to personalize the greeting
+  - Example: `https://mobily.dev?hi=Omar+Mohammed` will display "Hi there Omar Mohammed! 👋"
+- **HTTPS Redirect**: Automatically redirects HTTP traffic to HTTPS
+- **Responsive Design**: Works on all device sizes
 
 ## Prerequisites
 

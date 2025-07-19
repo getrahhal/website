@@ -1,14 +1,19 @@
+// Get URL parameters and update greeting message
 document.addEventListener('DOMContentLoaded', function() {
-    // Set current year
-    const yearSpan = document.getElementById('currentYear');
-    if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
-    }
+    const urlParams = new URLSearchParams(window.location.search);
+    const nameParam = urlParams.get('hi');
+    const greetingElement = document.getElementById('greeting-message');
     
-    // Initialize internationalization after a brief delay to ensure all scripts are loaded
-    setTimeout(() => {
-        if (window.i18n) {
-            window.i18n.updateLanguage();
-        }
-    }, 100);
-}); 
+    if (nameParam) {
+        // Decode the name parameter (handles URL encoding like Omar+Mohammed)
+        const decodedName = decodeURIComponent(nameParam.replace(/\+/g, ' '));
+        greetingElement.textContent = `Hi there ${decodedName}! 👋`;
+    } else {
+        greetingElement.textContent = 'Hi there! 👋';
+    }
+});
+
+// Force HTTPS redirect (for production)
+if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+    location.replace('https:' + window.location.href.substring(window.location.protocol.length));
+} 

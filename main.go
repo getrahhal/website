@@ -20,7 +20,7 @@ func main() {
 
 	// Create new Fiber app
 	app := fiber.New(fiber.Config{
-		AppName:      "Rahhal Website",
+		AppName:      "Mobily.dev Website",
 		ServerHeader: "Fiber",
 		// Prefork: When set to true, the server will fork into multiple processes (one per CPU core)
 		// to handle requests in parallel. However, this is incompatible with Docker containers
@@ -34,6 +34,14 @@ func main() {
 	app.Use(recover.New())  // Panic recovery
 	app.Use(compress.New()) // Response compression
 	app.Use(cors.New())     // CORS support
+
+	// HTTPS redirect middleware (only in production)
+	app.Use(func(c *fiber.Ctx) error {
+		if c.Get("X-Forwarded-Proto") == "http" && os.Getenv("ENVIRONMENT") == "production" {
+			return c.Redirect("https://"+c.Hostname()+c.OriginalURL(), 301)
+		}
+		return c.Next()
+	})
 
 	// Add no-cache middleware
 	app.Use(func(c *fiber.Ctx) error {
