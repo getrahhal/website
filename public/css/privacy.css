@@ -1,0 +1,233 @@
+.back-nav {
+    padding: 24px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: transparent;
+}
+
+.back-link:hover {
+    background: rgba(0, 122, 255, 0.08);
+    transform: translateX(-4px);
+}
+
+.back-arrow {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+html[dir="rtl"] .back-arrow {
+    transform: rotate(180deg);
+}
+
+html[dir="rtl"] .back-link:hover {
+    transform: translateX(4px);
+}
+
+.privacy-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+}
+
+.privacy-header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo-container {
+    margin-bottom: 32px;
+}
+
+.logo-container img {
+    height: 67px;
+    width: auto;
+}
+
+[data-theme="dark"] .logo-container img {
+    filter: brightness(0) invert(1);
+}
+
+.privacy-header h1 {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
+.last-updated {
+    color: var(--secondary-text);
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.privacy-content {
+    color: var(--text-color);
+}
+
+.privacy-section {
+    margin-bottom: 48px;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.privacy-section h2 {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+}
+
+.privacy-section h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 16px;
+    margin-top: 28px;
+}
+
+.privacy-section p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text-color);
+    margin-bottom: 16px;
+}
+
+.privacy-section ul {
+    margin: 20px 0;
+    padding-left: 24px;
+}
+
+html[dir="rtl"] .privacy-section ul {
+    padding-left: 0;
+    padding-right: 24px;
+}
+
+.privacy-section li {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text-color);
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 8px;
+}
+
+html[dir="rtl"] .privacy-section li {
+    padding-left: 0;
+    padding-right: 8px;
+}
+
+.privacy-section li::marker {
+    color: var(--primary-color);
+}
+
+.subsection {
+    margin-top: 32px;
+    padding-left: 20px;
+    border-left: 3px solid var(--primary-color);
+}
+
+html[dir="rtl"] .subsection {
+    padding-left: 0;
+    padding-right: 20px;
+    border-left: none;
+    border-right: 3px solid var(--primary-color);
+}
+
+.contact-info {
+    background: var(--section-background);
+    padding: 24px;
+    border-radius: var(--border-radius);
+    margin-top: 20px;
+}
+
+.contact-info p {
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.contact-info p:last-child {
+    margin-bottom: 0;
+}
+
+.contact-info strong {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.contact-info a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.contact-info a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .back-nav {
+        padding: 16px 24px;
+    }
+
+    .privacy-container {
+        padding: 0 24px 60px;
+    }
+    
+    .privacy-header h1 {
+        font-size: 36px;
+    }
+    
+    .privacy-section h2 {
+        font-size: 28px;
+    }
+    
+    .privacy-section h3 {
+        font-size: 20px;
+    }
+    
+    .privacy-section p,
+    .privacy-section li {
+        font-size: 16px;
+    }
+    
+    .subsection {
+        padding-left: 16px;
+    }
+    
+    html[dir="rtl"] .subsection {
+        padding-left: 0;
+        padding-right: 16px;
+    }
+    
+    .contact-info {
+        padding: 20px;
+    }
+}
